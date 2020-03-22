@@ -1,20 +1,24 @@
 %% FmapsChild.m
-% he purpose of this program was to apply linguistic analysis method
+% the purpose of this program was to apply linguistic analysis method
 % researchers have conventionally used to study 
 %% Takes all young child sound .wav files and finds the formant values
 %% All older children, age 8 and above, were considered in the ADULT category
+
 close all;
 clear all;
 clc;
+
 %% absolute paths to the sound directories
 Ball='C:\Users\bu\Documents\ELAT\VowelSpace\ChildrenVocalizationsTestModel\Ball - BEST';
 Daddy='C:\Users\bu\Documents\ELAT\VowelSpace\ChildrenVocalizationsTestModel\Daddy';
 Jeep='C:\Users\bu\Documents\ELAT\VowelSpace\ChildrenVocalizationsTestModel\Jeep';
 No='C:\Users\bu\Documents\ELAT\VowelSpace\ChildrenVocalizationsTestModel\No';
+
 %% make a cell - to "vectorize" directory path variables
 sound_dirs={Ball, Daddy,Jeep, No};
 num_sounds=length(sound_dirs);
 words=cell(1,num_sounds);
+
 %% peel off the directory name from the path 
 for i=1:num_sounds;
     path=sound_dirs{i};
@@ -24,6 +28,7 @@ for i=1:num_sounds;
 opendir = strcat(fname, ext);
 words{i}=opendir;
 end
+
 %% Each Directory is a cell. --- Within each cell you keep the struct array returned by the dir function.
 data=cell(length(num_sounds),3); %preallocate space given # sound types
 disp(data);
@@ -31,6 +36,7 @@ disp(data);
     % First column = directory name
     % Second column = "files struct" for .wav files
     % Third column = "formant data struct" 
+    
 %% fill the data_structure cell columns 1 & 2, with directory names and struct of .wav files. 
 for i=1:num_sounds;
     wavPATH=fullfile(sound_dirs{i}, '*.wav'); % fullfile(Ball, '*.wav'); <-- gives specified path
@@ -38,6 +44,7 @@ for i=1:num_sounds;
     data{i,2}=wavLIST;
     data{i,1}=words{i};
 end %all raw data saved into data_structure
+
 %% data_structure{i,3} holds the processed data <-- Formants
 for i=1:num_sounds;
      NUMwavs=numel(data{i,2});
